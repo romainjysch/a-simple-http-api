@@ -24,7 +24,7 @@
                                            :title title
                                            :location location})
     (log/info (str "New job created. Company: " company ". Title: " title ". Location: " location "."))
-    {:status  200
+    {:status  201
      :headers {"Content-Type" "application/json"}
      :body    (json/write-str @board/jobs)}))
 
@@ -33,7 +33,7 @@
   (let [id (get-in req [:path-params :id])]
     (swap! board/jobs dissoc (parse-uuid id))
     (log/info (str "Job " id " deleted."))
-    {:status  200
+    {:status  202
      :headers {"Content-Type" "application/json"}
      :body    (str (json/write-str @board/jobs))}))
 
